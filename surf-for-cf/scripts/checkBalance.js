@@ -2,23 +2,33 @@ const { ethers } = require("ethers");
 require("dotenv").config();
 
 async function main() {
-  const rpcUrl = "https://sepolia.base.org"; // Base Sepolia RPC URL
-  console.log("Connecting to RPC URL:", rpcUrl);
+  const RPC_URL = process.env.SEPOLIA_RPC_URL;
+  const WALLET_ADDRESS = process.env.WALLET_ADDRESS;
 
-  const provider = new ethers.JsonRpcProvider(rpcUrl);
+  if (!RPC_URL) {
+    console.error("Error: RPC_URL is not defined. Check your .env file.");
+    return;
+  }
+  if (!WALLET_ADDRESS) {
+    console.error("Error: WALLET_ADDRESS is not defined. Check your .env file.");
+    return;
+  }
 
-  const walletAddress = process.env.WALLET_ADDRESS; // Load from .env
-  console.log("Using Wallet Address:", walletAddress);
+  console.log("Connecting to RPC URL:", RPC_URL);
+  console.log("Using Wallet Address:", WALLET_ADDRESS);
 
   try {
-    const balance = await provider.getBalance(walletAddress);
-    console.log(`Balance of ${walletAddress}: ${ethers.formatEther(balance)} ETH`);
+    // Connect to the network
+    const provider = new ethers.JsonRpcProvider(RPC_URL);
+
+    // Fetch wallet balance
+    const balance = await provider.getBalance(WALLET_ADDRESS);
+
+    // Display balance in ETH
+    console.log(`Balance for ${WALLET_ADDRESS}: ${ethers.formatEther(balance)} ETH`);
   } catch (error) {
     console.error("Error fetching balance:", error.message);
   }
 }
 
-main().catch((error) => {
-  console.error("Script error:", error.message);
-  process.exitCode = 1;
-});
+main();
