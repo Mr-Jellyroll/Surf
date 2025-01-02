@@ -1,13 +1,3 @@
-# Sample Hardhat Project
+# Surf for CF
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a Hardhat Ignition module that deploys that contract.
-
-Try running some of the following tasks:
-
-```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat ignition deploy ./ignition/modules/Lock.js
-```
+Simple dApp crowdfunding platform. The idea is to accept ETH or stablecoin donations to a cause I volunteer with, Surf for Cystic Fibrosis, then mint NFTs as contribution proof.
